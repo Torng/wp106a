@@ -9,19 +9,62 @@ input { width:30px }
   </head>
   <body>
 <script>
-function lpad(s, len) {
-  var spad = "0000000000000000000" + s
-  return spad.substring(spad.length - len)
+  var counter = 100
+  var state = "init"
+// function lpad(s, len) {
+//   var spad = "0000000000000000000" + s
+//   return spad.substring(spad.length - len)
+// }
+// function printTime() {
+//   var time = document.getElementById('time')
+//   var d = new Date()
+//   time.innerText = lpad(d.getHours(), 2) + ':' + lpad(d.getMinutes(), 2) + ':' + lpad(d.getSeconds(), 2)
+//   setTimeout(printTime, 1000);
+// }
+
+function start(){
+  isStop = false;
+  setTimeout(showCounter,1000);
 }
-function printTime() {
-  var time = document.getElementById('time')
-  var d = new Date()
-  time.innerText = lpad(d.getHours(), 2) + ':' + lpad(d.getMinutes(), 2) + ':' + lpad(d.getSeconds(), 2)
-  setTimeout(printTime, 1000);
+function stop(){
+  isStop = false;
+}
+function showCounter(){
+  var counterLable = document.getElementById("counter")
+  counterLable.innerText = counter
+  if(state === "start")counter --
+  if(counter>=0)
+      setTimeout(showCounter,1000)
+      else{
+        document.getElementById("message").innerText = "Time's Up"
+        counterLable.innerText =counter
+      }
+  
 }
 
+function toggle(){
+  if(state ==="init"){
+    setTimeout(showCounter,1000)
+    state = "start"
+
+  }
+  else{
+    stateToggle()
+  }
+  document.getElementById("toggle").innerText = (state==="stop")?"start":"stop"
+
+}
+function stateToggle(){
+  state = (state==="stop")?"start":"stop"
+}
+
+
 setTimeout(printTime, 1000);
-</script>    
-    <label id="time"></label>
+</script>   
+     <center>
+    <label id="counter">100</label><br/><br/>
+    <button id="toggle" onclick="toggle()">開始</button>
+    <label id="message"></label>
+   </center>
   </body>
 </html>
