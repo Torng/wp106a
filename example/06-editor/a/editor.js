@@ -28,6 +28,31 @@ const template = [
           )
         }
       },
+
+
+
+
+      {
+      label: 'OpenNew File',
+      accelerator: 'CmdOrCtrl+N',
+      click: function (){
+        dialog.showSaveDialog(
+          function (fileName) {
+            if (fileName === undefined) {
+              console.log('No file selected')
+              return
+            }
+          fs.writeFile(fileName,"")
+          fs.readFile(fileName,function(err){
+            filePath.innerText = fileName
+
+          })
+          }
+        )
+        
+
+      }
+     },
       {
         label: 'Save',
         accelerator: 'CmdOrCtrl+S',
@@ -37,7 +62,23 @@ const template = [
           var text = document.getElementById('text')
           fs.writeFile(fileName, text.value)
         }
-      }
+      },
+      {
+      label: 'Savenew',
+      accelerator: 'CmdOrCtrl+D',
+      click: function () {
+        dialog.showSaveDialog(
+          function (fileName) {
+            if (fileName === undefined) {
+              console.log('No file selected')
+              return
+            }
+          fs.writeFile(fileName,text.value)
+          }
+        )
+      
+    }
+  }
     ]
   },
   {
